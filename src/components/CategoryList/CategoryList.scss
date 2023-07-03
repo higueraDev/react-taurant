@@ -1,0 +1,45 @@
+.category-list {
+	display: flex;
+	align-items: center;
+	white-space: nowrap;
+	overflow-x: auto;
+	padding: 10px 6px;
+
+	&::-webkit-scrollbar {
+		width: 0px; 
+	}
+
+}
+
+.category-section{
+	position: relative;
+	&:hover{
+		.scroll{
+			opacity: 1;
+		}
+	}
+}
+
+.scroll{
+	opacity: 0;
+	position: absolute;
+	font-size: 18px;
+	color: black;
+	bottom: 24px;
+	cursor: pointer;
+	transition: color 400ms ease, opacity 300ms ease-in-out;
+
+	&:hover{
+		color: orange;
+	}
+
+	&--right{
+		right: 0;
+		transform: translate(100%,-50%);
+	}
+
+	&--left{
+		left: 0;
+		transform: translate(-100%,-50%);
+	}
+}

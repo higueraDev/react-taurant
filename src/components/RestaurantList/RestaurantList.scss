@@ -1,0 +1,6 @@
+.restaurant-list {
+	display: grid;
+    justify-items: center;
+	grid-template-columns: auto 1fr auto;
+	gap: 40px 10px;
+}
