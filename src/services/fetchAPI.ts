@@ -3,7 +3,7 @@ import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 // interfaces
 import { IGetCategoriesResponse, ICategory } from "../interfaces/categories";
-import { IGetRestaurantsResponse } from "../interfaces/get-restaurants-response";
+import { IGetRestaurantsResponse } from "../interfaces/getRestaurantsResponse";
 // variables
 const serverUrl = process.env.REACT_APP_SERVER_URL || "";
 const apiRestaurants = serverUrl + "/api/restaurants";

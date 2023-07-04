@@ -6,7 +6,7 @@ import PrimaryLink from "../PrimaryLink/PrimaryLink";
 import "./Card.scss";
 // interfaces
 import { Price } from "../../interfaces/business";
-import { ICardProps } from "../../interfaces/card-props";
+import { ICardProps } from "../../interfaces/cardProps";
 
 const Card = ({
 	name,

@@ -2,7 +2,7 @@ import React from "react";
 // styles
 import "./Category.scss";
 // interfaces
-import { ICategoryProps } from "../../interfaces/category-props";
+import { ICategoryProps } from "../../interfaces/categoryProps";
 
 const Category = ({ children, onClick }: ICategoryProps) => {
 	return (

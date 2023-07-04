@@ -17,4 +17,9 @@
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	overflow: hidden;
+	transition: background-color 300ms ease;
+
+	&:hover{
+		background-color: #fff;
+	}
 }
