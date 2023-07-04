@@ -1,14 +1,14 @@
-import React, { AnchorHTMLAttributes } from "react";
+import React, { AnchorHTMLAttributes, ButtonHTMLAttributes } from "react";
 // styles
 import "./PrimaryLink.scss";
 // interfaces
-interface IPrimaryLinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {}
+interface IPrimaryLinkProps extends ButtonHTMLAttributes<HTMLButtonElement> {}
 
-const PrimaryLink = ({ children, href }: IPrimaryLinkProps): JSX.Element => {
+const PrimaryLink = ({ children }: IPrimaryLinkProps): JSX.Element => {
 	return (
-		<a className="button" rel="noopener noreferrer" href={href}>
+		<button className="button">
 			{children}
-		</a>
+		</button>
 	);
 };
 

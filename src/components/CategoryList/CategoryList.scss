@@ -2,16 +2,24 @@
 	display: flex;
 	align-items: center;
 	white-space: nowrap;
-	overflow-x: auto;
+	overflow-x: scroll;
+	width: 100%;
 	padding: 10px 6px;
+	gap: 20px;
 
 	&::-webkit-scrollbar {
-		width: 0px;
+		height: 0px;
+	}
+
+	@media (min-width: 768px) {
+		gap: 20px;
 	}
 }
 
 .category-section {
+	width: 100%;
 	position: relative;
+
 	&:hover {
 		.scroll {
 			opacity: 1;
@@ -24,7 +32,7 @@
 	position: absolute;
 	font-size: 18px;
 	color: black;
-	bottom: 24px;
+	bottom: 50%;
 	cursor: pointer;
 	transition: color 400ms ease, opacity 300ms ease-in-out;
 
@@ -33,12 +41,16 @@
 	}
 
 	&--right {
-		right: 0;
-		transform: translate(100%, -50%);
+		right: -2px;
+		transform: translate(100%, 50%);
 	}
 
 	&--left {
-		left: 0;
-		transform: translate(-100%, -50%);
+		left: -2px;
+		transform: translate(-100%, 50%);
+	}
+
+	@media (max-width: 767px) {
+		display: none;
 	}
 }

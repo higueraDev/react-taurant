@@ -1,17 +1,22 @@
 .button {
-	position: absolute;
-	bottom: 0;
-	right: 0;
-	left: 0;
-	margin: 0 auto;
-	transform: translateY(50%);
 	display: block;
-	padding: 7px 14px;
+	padding: 10px 14px;
 	width: 110px;
 	color: #fff;
 	border-radius: 5px;
+	border: none;
 	text-decoration: none;
 	text-transform: uppercase;
 	font-weight: bold;
 	background: linear-gradient(to right, #eb9448, #e8a972);
+	cursor: pointer;
+
+	@media (min-width:768px) {
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		left: 0;
+		margin: 0 auto;
+		transform: translateY(50%);
+	}
 }

@@ -16,22 +16,24 @@ const Card = ({
 	url,
 }: ICardProps): JSX.Element => {
 	return (
-		<article className="card">
-			<div className="card__image-wrapper">
-				<img className="card__image" src={image_url} alt={name} />
-			</div>
-			<h3 className="card__title">{name}</h3>
-			<hr />
-			<div className="card__info">
-				<p>
-					<Stars rating={rating} />
-				</p>
-				<p>{price}</p>
-			</div>
-			<PrimaryLink href={url} target="_blank">
-				View
-			</PrimaryLink>
-		</article>
+		<a className="link" href={url} target="_blank" rel="noopener noreferrer">
+			<article className="card">
+				<div className="card__image-wrapper">
+					<img className="card__image" src={image_url} alt={name} />
+				</div>
+				<div className="card__info-wrapper">
+					<h3 className="card__title">{name}</h3>
+					<hr />
+					<div className="card__info">
+						<p className="stars-wrapper">
+							<Stars rating={rating} />
+						</p>
+						<p className="price">{price}</p>
+					</div>
+					<PrimaryLink>View</PrimaryLink>
+				</div>
+			</article>
+		</a>
 	);
 };
 
