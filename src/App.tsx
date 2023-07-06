@@ -5,11 +5,11 @@ import RestaurantList from "./components/RestaurantList/RestaurantList";
 import Loader from "./components/Loader/Loader";
 // styles
 import "./App.scss";
-// helpers
-import { fetchCategories, fetchRestaurants } from "./services/fetchAPI";
+// hooks
 // interfaces
 import { IBusiness } from "./interfaces/business";
 import { ICategory } from "./interfaces/categories";
+import { useFetchAPI } from "./hooks/fetchAPI";
 
 const App = (): JSX.Element => {
 	const [restaurants, setRestaurants] = useState<IBusiness[]>([]);
@@ -18,10 +18,11 @@ const App = (): JSX.Element => {
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 
 	const handleCategory = (category: string) => {
-		console.log(isLoading);
 		if (isLoading) return;
 		setSelectedCategory(category);
 	};
+
+	const { fetchCategories, fetchRestaurants } = useFetchAPI();
 
 	// fetch logic
 
@@ -42,7 +43,7 @@ const App = (): JSX.Element => {
 		};
 
 		fetchData();
-	}, [selectedCategory]);
+	}, [selectedCategory, fetchCategories, fetchRestaurants]);
 
 	return (
 		<main className="container">

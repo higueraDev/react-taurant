@@ -9,7 +9,7 @@ const serverUrl = process.env.REACT_APP_SERVER_URL || "";
 const apiRestaurants = serverUrl + "/api/restaurants";
 const apiCategories = serverUrl + "/api/categories";
 
-export const fetchCategories = async () => {
+const fetchCategories = async () => {
 	try {
 		const response = await axios.get(apiCategories);
 		const data: IGetCategoriesResponse = response.data;
@@ -26,9 +26,7 @@ export const fetchCategories = async () => {
 	}
 };
 
-export const fetchRestaurants = async (
-	selectedCategory: ICategory["alias"]
-) => {
+const fetchRestaurants = async (selectedCategory: ICategory["alias"]) => {
 	try {
 		const response = await axios.get(
 			`${apiRestaurants}/category/${selectedCategory}`
@@ -39,4 +37,8 @@ export const fetchRestaurants = async (
 		console.error("Error fetching restaurants:", error);
 		return [];
 	}
+};
+
+export function useFetchAPI()  {
+	return { fetchCategories, fetchRestaurants };
 };

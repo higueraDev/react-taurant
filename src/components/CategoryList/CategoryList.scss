@@ -1,3 +1,13 @@
+.category-section {
+	width: 100%;
+	position: relative;
+	&:hover {
+		.scroll {
+			opacity: 1;
+		}
+	}
+}
+
 .category-list {
 	display: flex;
 	align-items: center;
@@ -6,24 +16,13 @@
 	width: 100%;
 	padding: 10px 6px;
 	gap: 20px;
-
+	
 	&::-webkit-scrollbar {
 		height: 0px;
 	}
 
-	@media (min-width: 768px) {
-		gap: 20px;
-	}
-}
-
-.category-section {
-	width: 100%;
-	position: relative;
-
-	&:hover {
-		.scroll {
-			opacity: 1;
-		}
+	@media (min-width:768px) {
+		scroll-snap-type: x mandatory;
 	}
 }
 

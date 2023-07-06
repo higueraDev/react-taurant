@@ -3,7 +3,7 @@
 	padding: 16px 20px;
 	display: block;
 	color: #000;
-	border: none;
+	border: 1px solid transparent;
 	border-radius: 5px;
 	text-decoration: none;
 	text-transform: uppercase;
@@ -15,13 +15,15 @@
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	overflow: hidden;
-	transition: background-color 300ms ease;
+	transition: background-color 300ms ease, border-color 300ms ease;
 	
 	&:hover{
 		background-color: #fff;
+		border-color: orange;
 	}
 	
 	@media (min-width:768px) {
+		scroll-snap-align: center;
 		flex: 0 0 calc(33.33% - 15px);
 	}
 		
