@@ -14,16 +14,15 @@
 	white-space: nowrap;
 	overflow-x: scroll;
 	width: 100%;
-	padding: 10px 6px;
+	padding: 10px 12px 10px 0px;
+	scroll-snap-type: x proximity;
+	scroll-padding-inline-start: 6px;
 	gap: 20px;
 	
 	&::-webkit-scrollbar {
 		height: 0px;
 	}
-
-	@media (min-width:768px) {
-		scroll-snap-type: x mandatory;
-	}
+	
 }
 
 .scroll {
