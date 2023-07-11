@@ -1,4 +1,4 @@
-import { ICenter } from "./get-restaurants-response";
+import { ICenter } from "./getRestaurantsRepsonse";
 
 export interface IBusiness {
 	id: string;

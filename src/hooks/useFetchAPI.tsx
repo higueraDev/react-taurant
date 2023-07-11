@@ -3,8 +3,8 @@ import axios from "axios";
 // plugins
 import { v4 as uuidv4 } from "uuid";
 // interfaces
-import { IGetCategoriesResponse, ICategory } from "../interfaces/categories";
-import { IGetRestaurantsResponse } from "../interfaces/get-restaurants-response";
+import { IGetCategoriesResponse, ICategory } from "../interfaces/getCategoriesResponse";
+import { IGetRestaurantsResponse } from "../interfaces/getRestaurantsRepsonse";
 import { IBusiness } from "../interfaces/business";
 // variables
 const serverUrl = process.env.REACT_APP_SERVER_URL || "";

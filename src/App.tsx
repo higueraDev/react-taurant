@@ -9,7 +9,7 @@ import "./App.scss";
 import { useFetchAPI } from "./hooks/useFetchAPI";
 // interfaces
 import { IBusiness } from "./interfaces/business";
-import { ICategory } from "./interfaces/categories";
+import { ICategory } from "./interfaces/getCategoriesResponse";
 
 const App = (): JSX.Element => {
 	const [restaurants, setRestaurants] = useState<IBusiness[]>([]);

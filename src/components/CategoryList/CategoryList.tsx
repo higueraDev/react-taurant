@@ -13,7 +13,7 @@ import {
 // styles
 import "./CategoryList.scss";
 // interfaces
-import { ICategory } from "../../interfaces/categories";
+import { ICategory } from "../../interfaces/getCategoriesResponse";
 import { useInfiniteScroll } from "../../hooks/useInfiniteScroll";
 
 interface ICategoryListProps {
