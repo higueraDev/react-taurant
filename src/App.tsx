@@ -15,12 +15,24 @@ const App = (): JSX.Element => {
 	const [restaurants, setRestaurants] = useState<IBusiness[]>([]);
 	const [categories, setCategories] = useState<ICategory[]>([]);
 	const [selectedCategory, setSelectedCategory] = useState<string>("bars");
+	const [offset, setOffset] = useState<number>(0);
+	const limit = 15;
 
-	const { categoryResponse, restaurantResponse, isLoading } =
-		useFetchAPI(selectedCategory);
+	const { categoryResponse, restaurantResponse, isLoading, totalRestaurant } = useFetchAPI(
+		selectedCategory,
+		offset.toString()
+	);
+
+	const handleLoadMore = () => {
+		const next = offset + limit;
+		if(next > totalRestaurant) return 
+		setOffset(next);
+	};
 
 	const handleCategory = (category: string) => {
 		if (isLoading) return;
+		setOffset(0)
+		setRestaurants([])
 		setSelectedCategory(category);
 	};
 
@@ -29,7 +41,16 @@ const App = (): JSX.Element => {
 	}, [categoryResponse]);
 
 	useEffect(() => {
-		setRestaurants(restaurantResponse);
+		if (Number(offset) > 0) {
+			const accumulatedRestaurants = [
+				...restaurants,
+				...restaurantResponse,
+			];
+
+			setRestaurants(accumulatedRestaurants);
+		} else {
+			setRestaurants(restaurantResponse);
+		}
 	}, [restaurantResponse]);
 
 	return (
@@ -39,15 +60,18 @@ const App = (): JSX.Element => {
 			{isLoading ? (
 				<Loader />
 			) : (
-				<>
-					<CategoryList
-						categories={categories}
-						sendCategory={handleCategory}
-						isLoading={isLoading}
-					/>
-					<RestaurantList restaurants={restaurants} />
-				</>
+				<CategoryList
+					categories={categories}
+					sendCategory={handleCategory}
+					isLoading={isLoading}
+				/>
 			)}
+			<RestaurantList
+				restaurants={restaurants}
+				onLoadMore={handleLoadMore}
+				offset={offset}
+				limit={limit}
+			/>
 		</main>
 	);
 };

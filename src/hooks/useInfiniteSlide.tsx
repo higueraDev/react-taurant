@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useCloneItems } from "./useCloneItems";
 
-export function useInfiniteScroll<T extends { id: string }>(
+export function useInfiniteSlide<T extends { id: string }>(
 	items: T[],
 	listRef: React.RefObject<HTMLDivElement>,
 	isLoading: boolean

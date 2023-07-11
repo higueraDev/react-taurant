@@ -1,0 +1,23 @@
+.dots{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	padding: 20px;
+}
+
+.dot {
+	display: block;
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	margin: 0 5px;
+    background-color: orange;
+	animation: pulse 1.2s ease infinite;
+}
+
+@keyframes pulse {
+	50%{
+		transform: scale(0.7);
+	}
+}

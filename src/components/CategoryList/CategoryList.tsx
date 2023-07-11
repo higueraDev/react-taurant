@@ -14,7 +14,7 @@ import {
 import "./CategoryList.scss";
 // interfaces
 import { ICategory } from "../../interfaces/getCategoriesResponse";
-import { useInfiniteScroll } from "../../hooks/useInfiniteScroll";
+import { useInfiniteSlide } from "../../hooks/useInfiniteSlide";
 
 interface ICategoryListProps {
 	categories: ICategory[];
@@ -29,7 +29,7 @@ const CategoryList = ({
 }: ICategoryListProps): JSX.Element => {
 	const [updatedCategories, setUpdatedCategories] = useState<ICategory[]>([]);
 	const listRef = useRef<HTMLDivElement | null>(null);
-	const { infiniteList } = useInfiniteScroll(categories, listRef, isLoading);
+	const { infiniteList } = useInfiniteSlide(categories, listRef, isLoading);
 
 	const onCategoryClick = (category: string) => {
 		sendCategory(category);

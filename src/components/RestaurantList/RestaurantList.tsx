@@ -1,19 +1,51 @@
-import React from "react";
+import React, { useState } from "react";
 // components
 import Card from "../Card/Card";
 import "./RestaurantList.scss";
 // interfaces
 import { IBusiness } from "../../interfaces/business";
+import Dots from "../Dots/Dots";
 interface IRestaurantListProps {
 	restaurants: IBusiness[];
+	onLoadMore: () => void;
+	limit: number;
+	offset: number;
 }
 
-const RestaurantList = ({ restaurants }: IRestaurantListProps): JSX.Element => {
+const RestaurantList = ({
+	restaurants,
+	onLoadMore,
+	offset,
+	limit,
+}: IRestaurantListProps): JSX.Element => {
+	const [isLoaded, setIsLoaded] = useState<boolean>(false);
+
+	const handleScroll: React.UIEventHandler<HTMLDivElement> = (e) => {
+		const element = e.target as HTMLDivElement;
+		const position = element.scrollTop;
+		const height = element.scrollHeight;
+		const itemsLoaded =
+			window.innerWidth > 767 ? (offset + limit) / 3 : offset + limit;
+		const itemHeight = height / itemsLoaded;
+		const itemsToScroll = itemsLoaded - 3;
+		const targetZone = itemsToScroll * itemHeight;
+
+		if (position > targetZone) {
+			if (!isLoaded) {
+				onLoadMore();
+				setIsLoaded(true);
+			}
+		} else {
+			if (isLoaded) setIsLoaded(false);
+		}
+	};
+
 	return (
-		<section className="restaurant-list">
+		<section onScroll={handleScroll} className="restaurant-list">
 			{restaurants.map((restaurant) => (
 				<Card {...restaurant} key={restaurant.id} />
 			))}
+			{isLoaded && <Dots />}
 		</section>
 	);
 };

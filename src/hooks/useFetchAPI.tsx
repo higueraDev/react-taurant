@@ -3,7 +3,10 @@ import axios from "axios";
 // plugins
 import { v4 as uuidv4 } from "uuid";
 // interfaces
-import { IGetCategoriesResponse, ICategory } from "../interfaces/getCategoriesResponse";
+import {
+	IGetCategoriesResponse,
+	ICategory,
+} from "../interfaces/getCategoriesResponse";
 import { IGetRestaurantsResponse } from "../interfaces/getRestaurantsRepsonse";
 import { IBusiness } from "../interfaces/business";
 // variables
@@ -11,12 +14,15 @@ const serverUrl = process.env.REACT_APP_SERVER_URL || "";
 const apiRestaurants = serverUrl + "/api/restaurants";
 const apiCategories = serverUrl + "/api/categories";
 
-export function useFetchAPI(selectedCategory: string = "bars") {
+export function useFetchAPI(selectedCategory: string = "bars", offset: string) {
 	const [categoryResponse, setCategoryResponse] = useState<ICategory[]>([]);
 	const [restaurantResponse, setRestaurantResponse] = useState<IBusiness[]>(
 		[]
 	);
+	const [totalRestaurant, setTotalRestaurant] = useState<number>(0);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
+	const [loadingRestaurants, setLoadingRestaurants] =
+		useState<boolean>(false);
 	useEffect(() => {
 		const fetchCategories = async () => {
 			try {
@@ -34,13 +40,12 @@ export function useFetchAPI(selectedCategory: string = "bars") {
 				);
 
 				setCategoryResponse(categories);
-				setIsLoading(false);
 			} catch (error) {
 				console.error("Error fetching categories:", error);
+			} finally {
+				setIsLoading(false);
 			}
-			setIsLoading(false);
 		};
-
 		fetchCategories();
 	}, []);
 
@@ -48,19 +53,22 @@ export function useFetchAPI(selectedCategory: string = "bars") {
 		const fetchRestaurants = async (
 			selectedCategory: ICategory["alias"]
 		) => {
-			try {
-				setIsLoading(true);
-				const response = await axios.get<IGetRestaurantsResponse>(
-					`${apiRestaurants}/category/${selectedCategory}`
-				);
-				const data = response.data;
-				setRestaurantResponse(data.businesses);
-				setIsLoading(false);
-			} catch (error) {
-				console.error("Error fetching restaurants:", error);
-			}
+			if (!loadingRestaurants)
+				try {
+					setLoadingRestaurants(true);
+					const response = await axios.get<IGetRestaurantsResponse>(
+						`${apiRestaurants}/category/${selectedCategory}/offset/${offset}`
+					);
+					const data = response.data;
+					setRestaurantResponse(data.businesses);
+					setTotalRestaurant(data.total);
+				} catch (error) {
+					console.error("Error fetching restaurants:", error);
+				} finally {
+					setLoadingRestaurants(false);
+				}
 		};
 		fetchRestaurants(selectedCategory);
-	}, [selectedCategory]);
-	return { categoryResponse, restaurantResponse, isLoading };
+	}, [selectedCategory, offset]);
+	return { categoryResponse, restaurantResponse, isLoading, totalRestaurant };
 }
