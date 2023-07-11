@@ -9,84 +9,31 @@ import {
 	faCircleLeft,
 	faCircleRight,
 } from "@fortawesome/free-regular-svg-icons";
-import { v4 as uuidv4 } from "uuid";
 
 // styles
 import "./CategoryList.scss";
 // interfaces
 import { ICategory } from "../../interfaces/categories";
+import { useInfiniteScroll } from "../../hooks/useInfiniteScroll";
 
 interface ICategoryListProps {
 	categories: ICategory[];
 	sendCategory: (category: string) => void;
+	isLoading: boolean
 }
 
 const CategoryList = ({
 	categories,
 	sendCategory,
+	isLoading,
 }: ICategoryListProps): JSX.Element => {
-	const [scrollPosition, setScrollPosition] = useState<number>(0);
-	const [isCloned, setIsCloned] = useState<boolean>(false);
 	const [updatedCategories, setUpdatedCategories] = useState<ICategory[]>([]);
 	const listRef = useRef<HTMLDivElement | null>(null);
-
-	const cloneCategories = (isLeft: boolean) => {
-		const clonedCategories = categories.map((category) => ({
-			...category,
-			id: uuidv4(),
-		}));
-		if (isLeft) {
-			clonedCategories.unshift(...categories);
-		} else {
-			clonedCategories.push(...categories);
-		}
-		setUpdatedCategories(clonedCategories);
-	};
-
-	useEffect(() => {
-		cloneCategories(true);
-	}, [categories]);
+	const { infiniteList } = useInfiniteScroll(categories, listRef, isLoading);
 
 	const onCategoryClick = (category: string) => {
 		sendCategory(category);
 	};
-
-	const onScroll = () => {
-		const list = listRef.current;
-		if (!list) return;
-		setScrollPosition(list.scrollLeft);
-	};
-
-	useEffect(() => {
-		const list = listRef.current;
-		if (!list) return;
-		const firstItems = scrollPosition < 10;
-		const lastItems =
-			scrollPosition > 0 &&
-			scrollPosition + list.clientWidth > list.scrollWidth - 10;
-
-		const handleInfiniteScroll = () => {
-			cloneCategories(firstItems);
-			setIsCloned(true);
-		};
-
-		if (firstItems || lastItems) {
-			if (!isCloned) handleInfiniteScroll();
-		} else {
-			setIsCloned(false);
-		}
-	}, [scrollPosition]);
-
-	useEffect(() => {
-		const list = listRef.current;
-		if (!list || !isCloned || list.scrollWidth < 700) return;
-		list.scrollTo({
-			left:
-				list.scrollLeft < 10
-					? list.scrollWidth / 2
-					: list.scrollWidth / 2 - list.clientWidth,
-		});
-	}, [updatedCategories]);
 
 	const onScrollClick = (isToRight: boolean) => {
 		const list = listRef.current;
@@ -100,9 +47,14 @@ const CategoryList = ({
 		});
 	};
 
+	useEffect(() => {
+		if (!listRef.current) return;
+		setUpdatedCategories(infiniteList);
+	}, [listRef, infiniteList]);
+
 	return (
 		<section className="category-section">
-			<div ref={listRef} className="category-list" onScroll={onScroll}>
+			<div ref={listRef} className="category-list">
 				{updatedCategories.map(({ title, alias, id }) => (
 					<Category onClick={() => onCategoryClick(alias)} key={id}>
 						{title}

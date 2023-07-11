@@ -1,4 +1,3 @@
-import React from "react";
 // components
 import Stars from "../Stars/Stars";
 import PrimaryLink from "../PrimaryLink/PrimaryLink";

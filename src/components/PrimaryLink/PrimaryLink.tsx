@@ -1,4 +1,4 @@
-import React, { AnchorHTMLAttributes, ButtonHTMLAttributes } from "react";
+import { ButtonHTMLAttributes } from "react";
 // styles
 import "./PrimaryLink.scss";
 // interfaces
