@@ -17,6 +17,10 @@
 	overflow: hidden;
 	transition: background-color 300ms ease, border-color 300ms ease;
 	scroll-snap-align: start;
+
+	&:nth-child(1){
+		margin-left: 12px;
+	}
 	
 	&:hover{
 		background-color: #fff;
