@@ -75,6 +75,5 @@ export function useFetchAPI(selectedCategory: string = "bars", offset: string) {
 		isLoading,
 		totalRestaurant,
 		loadingRestaurants,
-		setLoadingRestaurants,
 	};
 }

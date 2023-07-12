@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // components
 import Card from "../Card/Card";
 import "./RestaurantList.scss";
@@ -12,7 +12,6 @@ interface IRestaurantListProps {
 	limit: number;
 	offset: number;
 	loadingRestaurants: boolean;
-	setLoadingRestaurants: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const RestaurantList = ({
@@ -22,6 +21,8 @@ const RestaurantList = ({
 	limit,
 	loadingRestaurants,
 }: IRestaurantListProps): JSX.Element => {
+	const [isMobile, setIsMobile] = useState<boolean>(false);
+
 	const skeletonItems = Array(9)
 		.fill(null)
 		.map((_, i) => <Card {...skeleton} key={skeleton.name + i} />);
@@ -30,18 +31,19 @@ const RestaurantList = ({
 		const element = e.target as HTMLDivElement;
 		const position = element.scrollTop;
 		const height = element.scrollHeight;
-		const itemsLoaded =
-			window.innerWidth > 767 ? (offset + limit) / 3 : offset + limit;
+		const itemsLoaded = isMobile ? offset + limit : (offset + limit) / 3;
 		const itemHeight = height / itemsLoaded;
-		const itemsToScroll = itemsLoaded - 2;
+		const itemsToScroll = isMobile ? itemsLoaded - 6 : itemsLoaded - 3;
 		const targetZone = itemsToScroll * itemHeight;
 
-		if (position > targetZone) {
-			if (!loadingRestaurants) {
-				onLoadMore();
-			}
+		if (position > targetZone && !loadingRestaurants) {
+			onLoadMore();
 		}
 	};
+
+	useEffect(() => {
+		setIsMobile(window.innerWidth < 768);
+	}, []);
 
 	return (
 		<section onScroll={handleScroll} className="restaurant-list">

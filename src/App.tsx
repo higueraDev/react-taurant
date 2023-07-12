@@ -24,7 +24,6 @@ const App = (): JSX.Element => {
 		isLoading,
 		totalRestaurant,
 		loadingRestaurants,
-		setLoadingRestaurants,
 	} = useFetchAPI(selectedCategory, offset.toString());
 
 	const handleLoadMore = () => {
@@ -76,7 +75,6 @@ const App = (): JSX.Element => {
 				offset={offset}
 				limit={limit}
 				loadingRestaurants={loadingRestaurants}
-				setLoadingRestaurants={setLoadingRestaurants}
 			/>
 		</main>
 	);

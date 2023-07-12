@@ -1,6 +1,7 @@
 .category-section {
 	width: 100%;
 	position: relative;
+	flex-grow: 0;
 	&:hover {
 		.scroll {
 			opacity: 1;

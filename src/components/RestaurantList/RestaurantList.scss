@@ -3,6 +3,7 @@
 	height: 80%;
 	overflow-y: auto;
 	padding: 20px 14px 60px;
+	flex-grow: 1;
 
 	&::-webkit-scrollbar {
 		width: 0px;

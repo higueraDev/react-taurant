@@ -19,7 +19,7 @@
 	}
 
 	@media (min-width: 768px) {
-		padding: 20px 30px;
+		padding: 20px 25px;
 		position: relative;
 		flex-direction: column;
 		align-items: center;
@@ -42,8 +42,7 @@
 	}
 
 	.price {
-		width: 25px;
-		margin-left: 10px;
+		width: 20px;
 	}
 
 	.button {
@@ -69,11 +68,13 @@
 }
 
 .card__info-wrapper {
+	width: 100%;
 	padding: 0 20px;
 	flex-grow: 1;
 	max-width: 80%;
-
+	
 	@media (min-width: 768px) {
+		max-width: 100%;
 		padding: 20px 0;
 	}
 }
