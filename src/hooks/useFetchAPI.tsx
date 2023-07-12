@@ -70,5 +70,5 @@ export function useFetchAPI(selectedCategory: string = "bars", offset: string) {
 		};
 		fetchRestaurants(selectedCategory);
 	}, [selectedCategory, offset]);
-	return { categoryResponse, restaurantResponse, isLoading, totalRestaurant };
+	return { categoryResponse, restaurantResponse, isLoading, totalRestaurant,loadingRestaurants,setLoadingRestaurants };
 }

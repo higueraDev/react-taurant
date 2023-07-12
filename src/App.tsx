@@ -18,21 +18,25 @@ const App = (): JSX.Element => {
 	const [offset, setOffset] = useState<number>(0);
 	const limit = 15;
 
-	const { categoryResponse, restaurantResponse, isLoading, totalRestaurant } = useFetchAPI(
-		selectedCategory,
-		offset.toString()
-	);
+	const {
+		categoryResponse,
+		restaurantResponse,
+		isLoading,
+		totalRestaurant,
+		loadingRestaurants,
+		setLoadingRestaurants,
+	} = useFetchAPI(selectedCategory, offset.toString());
 
 	const handleLoadMore = () => {
 		const next = offset + limit;
-		if(next > totalRestaurant) return 
+		if (next > totalRestaurant) return;
 		setOffset(next);
 	};
 
 	const handleCategory = (category: string) => {
 		if (isLoading) return;
-		setOffset(0)
-		setRestaurants([])
+		setOffset(0);
+		setRestaurants([]);
 		setSelectedCategory(category);
 	};
 
@@ -71,6 +75,8 @@ const App = (): JSX.Element => {
 				onLoadMore={handleLoadMore}
 				offset={offset}
 				limit={limit}
+				loadingRestaurants={loadingRestaurants}
+				setLoadingRestaurants={setLoadingRestaurants}
 			/>
 		</main>
 	);

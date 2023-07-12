@@ -10,6 +10,8 @@ interface IRestaurantListProps {
 	onLoadMore: () => void;
 	limit: number;
 	offset: number;
+	loadingRestaurants: boolean;
+	setLoadingRestaurants: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const RestaurantList = ({
@@ -17,9 +19,9 @@ const RestaurantList = ({
 	onLoadMore,
 	offset,
 	limit,
+	loadingRestaurants,
+	setLoadingRestaurants,
 }: IRestaurantListProps): JSX.Element => {
-	const [isLoaded, setIsLoaded] = useState<boolean>(false);
-
 	const handleScroll: React.UIEventHandler<HTMLDivElement> = (e) => {
 		const element = e.target as HTMLDivElement;
 		const position = element.scrollTop;
@@ -27,17 +29,14 @@ const RestaurantList = ({
 		const itemsLoaded =
 			window.innerWidth > 767 ? (offset + limit) / 3 : offset + limit;
 		const itemHeight = height / itemsLoaded;
-		const itemsToScroll = itemsLoaded - 3;
+		const itemsToScroll = itemsLoaded - 2;
 		const targetZone = itemsToScroll * itemHeight;
 
 		if (position > targetZone) {
-			if (!isLoaded) {
+			if (!loadingRestaurants) {
 				onLoadMore();
-				setIsLoaded(true);
 			}
-		} else {
-			if (isLoaded) setIsLoaded(false);
-		}
+		} 
 	};
 
 	return (
@@ -45,7 +44,7 @@ const RestaurantList = ({
 			{restaurants.map((restaurant) => (
 				<Card {...restaurant} key={restaurant.id} />
 			))}
-			{isLoaded && <Dots />}
+			{loadingRestaurants && <Dots />}
 		</section>
 	);
 };
