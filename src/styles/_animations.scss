@@ -1,0 +1,20 @@
+@keyframes loading {
+	50% {
+		opacity: 0.6;
+	}
+}
+
+@keyframes pulse {
+	50% {
+		transform: scale(0.7);
+	}
+}
+
+.pulse {
+	animation: pulse 1s ease infinite;
+}
+
+.loading {
+	opacity: 1;
+	animation: loading 1.4s linear infinite;
+}

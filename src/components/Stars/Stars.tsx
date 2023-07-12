@@ -8,9 +8,10 @@ import "./Stars.scss";
 // interfaces
 interface IStarsProps {
 	rating: number;
+	color?: string;
 }
 
-const Stars = ({ rating }: IStarsProps): JSX.Element => {
+const Stars = ({ rating, color }: IStarsProps): JSX.Element => {
 	const stars = [];
 	const filledStars = Math.floor(rating);
 	const hasHalfStar = rating % 1 !== 0;
@@ -19,6 +20,7 @@ const Stars = ({ rating }: IStarsProps): JSX.Element => {
 	for (let i = 0; i < filledStars; i++) {
 		stars.push(
 			<FontAwesomeIcon
+				style={{ color }}
 				className="gold-star"
 				icon={faStar}
 				key={uuidv4()}

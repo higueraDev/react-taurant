@@ -5,6 +5,7 @@ import "./RestaurantList.scss";
 // interfaces
 import { IBusiness } from "../../interfaces/business";
 import Dots from "../Dots/Dots";
+import { skeleton } from "../Card/skeleton";
 interface IRestaurantListProps {
 	restaurants: IBusiness[];
 	onLoadMore: () => void;
@@ -20,8 +21,11 @@ const RestaurantList = ({
 	offset,
 	limit,
 	loadingRestaurants,
-	setLoadingRestaurants,
 }: IRestaurantListProps): JSX.Element => {
+	const skeletonItems = Array(9)
+		.fill(null)
+		.map((_, i) => <Card {...skeleton} key={skeleton.name + i} />);
+
 	const handleScroll: React.UIEventHandler<HTMLDivElement> = (e) => {
 		const element = e.target as HTMLDivElement;
 		const position = element.scrollTop;
@@ -36,14 +40,19 @@ const RestaurantList = ({
 			if (!loadingRestaurants) {
 				onLoadMore();
 			}
-		} 
+		}
 	};
 
 	return (
 		<section onScroll={handleScroll} className="restaurant-list">
 			{restaurants.map((restaurant) => (
-				<Card {...restaurant} key={restaurant.id} />
+				<Card
+					{...restaurant}
+					key={restaurant.id}
+					isSkeleton={loadingRestaurants}
+				/>
 			))}
+			{loadingRestaurants && skeletonItems}
 			{loadingRestaurants && <Dots />}
 		</section>
 	);

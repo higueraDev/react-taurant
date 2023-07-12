@@ -4,4 +4,6 @@ export interface ICardProps
 	extends Pick<
 		IBusiness,
 		"id" | "image_url" | "name" | "rating" | "price" | "url"
-	> {}
+	> {
+		isSkeleton: boolean
+	}

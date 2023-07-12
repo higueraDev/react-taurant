@@ -62,13 +62,19 @@ export function useFetchAPI(selectedCategory: string = "bars", offset: string) {
 					const data = response.data;
 					setRestaurantResponse(data.businesses);
 					setTotalRestaurant(data.total);
+					setLoadingRestaurants(false);
 				} catch (error) {
 					console.error("Error fetching restaurants:", error);
-				} finally {
-					setLoadingRestaurants(false);
 				}
 		};
 		fetchRestaurants(selectedCategory);
 	}, [selectedCategory, offset]);
-	return { categoryResponse, restaurantResponse, isLoading, totalRestaurant,loadingRestaurants,setLoadingRestaurants };
+	return {
+		categoryResponse,
+		restaurantResponse,
+		isLoading,
+		totalRestaurant,
+		loadingRestaurants,
+		setLoadingRestaurants,
+	};
 }

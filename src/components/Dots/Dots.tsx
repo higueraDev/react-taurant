@@ -6,7 +6,7 @@ const Dots = () => {
 		.fill(null)
 		.map((_, i) => (
 			<span
-				className="dot"
+				className="dot pulse"
 				key={i}
 				style={{ animationDelay: `${(i+1)*0.2}s` }}
 			></span>

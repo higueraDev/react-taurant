@@ -1,4 +1,6 @@
 @import-normalize;
+@import 'vars';
+@import 'animations';
 @import url("https://fonts.googleapis.com/css2?family=Montserrat&family=Roboto:wght@400;700&display=swap");
 
 * {
@@ -18,12 +20,4 @@ body {
 
 button {
 	font-family: "Montserrat";
-}
-
-.show {
-	display: block;
-}
-
-.hide {
-	display: none;
 }

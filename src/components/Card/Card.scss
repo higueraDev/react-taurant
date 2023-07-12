@@ -1,18 +1,23 @@
+@import "/src/styles/animations";
+
 .card {
 	display: flex;
 	width: 100%;
 	padding: 20px 0;
-	cursor: pointer;
 	transition: transform 300ms ease;
 	color: #000;
 	border-bottom: 1px solid #f2f2f2;
-	
-	&:hover {
-		@media (min-width:768px) {
+
+	&:not(.card--skeleton) {
+		cursor: pointer;
+	}
+
+	&:not(.card--skeleton):hover {
+		@media (min-width: 768px) {
 			transform: scale(1.05);
 		}
 	}
-	
+
 	@media (min-width: 768px) {
 		padding: 20px 30px;
 		position: relative;
@@ -24,6 +29,28 @@
 	}
 }
 
+.card--skeleton {
+	.card__image-wrapper,
+	.card__title,
+	.price {
+		background: lightgray;
+	}
+
+	.card__title,
+	.price {
+		height: 14px;
+	}
+
+	.price {
+		width: 25px;
+		margin-left: 10px;
+	}
+
+	.button {
+		background: lightgray;
+		height: 36px;
+	}
+}
 
 .card__image-wrapper {
 	flex: none;
@@ -41,12 +68,12 @@
 	object-fit: cover;
 }
 
-.card__info-wrapper{
+.card__info-wrapper {
 	padding: 0 20px;
 	flex-grow: 1;
 	max-width: 80%;
 
-	@media (min-width:768px) {
+	@media (min-width: 768px) {
 		padding: 20px 0;
 	}
 }
@@ -69,7 +96,7 @@
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	overflow: hidden;
-	
+
 	@media (min-width: 768px) {
 		margin-bottom: 10px;
 	}
@@ -79,7 +106,7 @@
 	display: block;
 	text-decoration: none;
 	width: 100%;
-	@media (min-width:768px) {
+	@media (min-width: 768px) {
 		width: calc(33.33% - 14px);
 	}
 }
@@ -94,7 +121,8 @@ hr {
 	}
 }
 
-.stars-wrapper, .price{
+.stars-wrapper,
+.price {
 	font-size: 14px;
 	margin-top: 0;
 	margin-bottom: 5px;
